@@ -4,7 +4,7 @@ import * as ReactDOM from "react-dom";
 // Webpack CSS import
 import "onsenui/css/onsenui.css";
 import "onsenui/css/onsen-css-components.css";
-import "./styles.css";
+import "./styles/app.css";
 
 import App from "./App";
 

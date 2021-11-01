@@ -1,26 +1,14 @@
 package com.dergoogler.hytts;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.annotation.SuppressLint;
-import android.app.DownloadManager;
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.net.http.SslError;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.Handler;
 import android.speech.tts.TextToSpeech;
 import android.view.KeyEvent;
-import android.view.View;
-import android.webkit.DownloadListener;
 import android.webkit.JavascriptInterface;
-import android.webkit.MimeTypeMap;
-import android.webkit.SslErrorHandler;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 
@@ -86,28 +74,6 @@ public class MainActivity extends AppCompatActivity {
         }, "Android");
 
         webView.loadUrl(url);
-
-        webView.setDownloadListener(new DownloadListener() {
-            String fileName = MimeTypeMap.getFileExtensionFromUrl(url);
-
-            @Override
-            public void onDownloadStart(String url, String userAgent,
-                                        String contentDisposition, String mimetype,
-                                        long contentLength) {
-
-                DownloadManager.Request request = new DownloadManager.Request(
-                        Uri.parse(url));
-
-                request.allowScanningByMediaScanner();
-                request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED); //Notify client once download is completed!
-                request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName);
-                DownloadManager dm = (DownloadManager) getSystemService(DOWNLOAD_SERVICE);
-                dm.enqueue(request);
-                Toast.makeText(getApplicationContext(), "Downloading File", //To notify the Client that the file is being downloaded
-                        Toast.LENGTH_LONG).show();
-
-            }
-        });
     }
 
     public class myWebViewclient extends WebViewClient {
