@@ -13,7 +13,7 @@ declare global {
 interface Android {
   /**
    * @Native
-   * @param content String
+   * @param {String} content
    */
   ttsSpeak(content: string): void;
 
@@ -29,13 +29,13 @@ interface Android {
 
   /**
    * @Native
-   * @param count Number
+   * @param {Number} count
    */
   ttsSpeech(count: number): void;
 
   /**
    * @Native
-   * @param count Number
+   * @param {Number} count
    */
   ttsPitch(count: number): void;
 
@@ -46,9 +46,35 @@ interface Android {
 
   /**
    * @Native
-   * @param content String
+   * @param {String} content
    */
   showMessage(content: string): void;
+
+  /**
+   * @Native
+   * @param {String} password
+   * @param {String} message
+   */
+  encryptAES(password: string, message: string): string;
+
+  /**
+   * @Native
+   * @param {String} password
+   * @param {String} message
+   */
+  decryptAES(password: string, message: string): string;
+
+  /**
+   * @Native
+   * @param {String} link
+   */
+  open(link: string): void;
+
+  /**
+   * @Native
+   * @param {String} content
+   */
+  copyToClipboard(content: string): void;
 }
 
 class android {
@@ -111,6 +137,44 @@ class android {
    */
   public makeToast(content: string): void {
     window.Android.showMessage(content);
+  }
+
+  /**
+   * @Native Encode an text with an native method
+   * @param {String} password
+   * @param {String} message
+   */
+  public encodeAES(password: string, message: string): string {
+    return window.Android.encryptAES(password, message);
+  }
+
+  /**
+   * @Native Decode an text with an native method
+   * @param {String} password
+   * @param {String} message
+   */
+  public decodeAES(password: string, message: string): string {
+    return window.Android.decryptAES(password, message);
+  }
+  /**
+   * @Native Open an link external
+   * @param {String} link
+   */
+  public open(link: string) {
+    window.Android.open(link);
+  }
+
+  /**
+   * @Native Copy an text to the clipboard
+   * @param {String} content
+   * @param {String} customToastText
+   */
+  public copyToClipboard(
+    content: string,
+    customToastText: string = "Copied to clipboard"
+  ) {
+    window.Android.copyToClipboard(content);
+    window.Android.showMessage(customToastText);
   }
 }
 

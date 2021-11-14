@@ -1,26 +1,41 @@
 :root {
-  --main-background: #0076ff;
+  --main-default-background: rgb(0, 118, 255);
+  --main-background1: rgba(0, 118, 255, 1);
+  --main-background2: rgba(0, 212, 255, 1);
+  --white: white;
 }
 
 .toolbar {
   /* background-color: var(--main-background);*/
-  background: rgb(0, 118, 255);
+  background: var(--main-default-background);
   background: linear-gradient(
     180deg,
-    rgba(0, 118, 255, 1) 0%,
-    rgba(0, 212, 255, 1) 100%
+    var(--main-background1) 0%,
+    var(--main-background2) 100%
   );
 }
 
 .toolbar--material__center {
-  color: white;
+  color: var(--white);
+}
+
+.tabbar--material {
+  background-color: rgba(0, 212, 255, 1);
+}
+
+.tabbar--material__border {
+  background-color: var(--white);
+}
+
+.tabbar__label {
+  color: var(--white);
 }
 
 .button--material {
-  background: rgb(0, 118, 255);
+  background: var(--main-default-background);
   background: linear-gradient(
-    164deg,
-    rgba(0, 118, 255, 1) 0%,
-    rgba(0, 212, 255, 1) 100%
+    180deg,
+    var(--main-background1) 0%,
+    var(--main-background2) 100%
   );
 }

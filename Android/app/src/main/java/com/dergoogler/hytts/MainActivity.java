@@ -3,6 +3,11 @@ package com.dergoogler.hytts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
 import android.view.KeyEvent;
@@ -10,6 +15,8 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
+
+import java.security.GeneralSecurityException;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -70,6 +77,30 @@ public class MainActivity extends AppCompatActivity {
             @JavascriptInterface
             public void showMessage(String content) {
                 Toast.makeText(MainActivity.this, content, Toast.LENGTH_SHORT).show();
+            }
+
+            @JavascriptInterface
+            public String encryptAES(String password, String text) throws GeneralSecurityException {
+                return AESCrypt.encrypt(password, text);
+            }
+
+            @JavascriptInterface
+            public String decryptAES(String password, String text) throws GeneralSecurityException {
+                return AESCrypt.decrypt(password, text);
+            }
+
+            @JavascriptInterface
+            public void open(String link) {
+                Uri uriUrl = Uri.parse(link);
+                Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+                startActivity(launchBrowser);
+            }
+
+            @JavascriptInterface
+            public void copyToClipboard(String content) {
+                ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                ClipData clip = ClipData.newPlainText("copy", content);
+                clipboard.setPrimaryClip(clip);
             }
         }, "Android");
 
